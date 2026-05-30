@@ -1,0 +1,79 @@
+### API TESTS для Event Outfit
+
+### Базовый URL
+@baseUrl = http://localhost:8080
+
+### REST API для образов (/api/outfits)
+
+### GET все образы
+GET {{baseUrl}}/api/outfits
+
+### GET образ по ID
+GET {{baseUrl}}/api/outfits/1
+
+### GET образы пользователя
+GET {{baseUrl}}/api/outfits/user/1
+
+### GET образы по мероприятию и полу
+GET {{baseUrl}}/api/outfits/event/1?gender=FEMALE
+
+### GET поиск по ключевому слову
+GET {{baseUrl}}/api/outfits/search?keyword=платье
+
+### GET популярные образы (подзапрос)
+GET {{baseUrl}}/api/outfits/popular
+
+### GET все фото образа
+GET {{baseUrl}}/api/outfits/1/images
+
+### POST создать образ
+POST {{baseUrl}}/api/outfits
+Content-Type: application/json
+
+{
+  "name": "Тестовый образ",
+  "description": "Создан через REST API",
+  "gender": "FEMALE",
+  "userId": 1,
+  "eventId": 1,
+  "imageUrls": ["https://example.com/photo1.jpg", "https://example.com/photo2.jpg"],
+  "styleIds": [1, 2],
+  "price": 15000
+}
+
+### PUT обновить образ
+PUT {{baseUrl}}/api/outfits/1
+Content-Type: application/json
+
+{
+  "name": "Обновленное название",
+  "description": "Обновленное описание",
+  "gender": "MALE",
+  "eventId": 2,
+  "styleIds": [1]
+}
+
+### DELETE удалить образ
+DELETE {{baseUrl}}/api/outfits/1
+
+### REST API для избранного (/api/favorites)
+
+### GET избранное пользователя
+GET {{baseUrl}}/api/favorites/1
+
+### GET проверить, в избранном ли образ
+GET {{baseUrl}}/api/favorites/1/check/1
+
+### POST добавить в избранное
+POST {{baseUrl}}/api/favorites/1/1
+
+### DELETE удалить из избранного
+DELETE {{baseUrl}}/api/favorites/1/1
+
+### REST API для валют (/api/currency)
+
+### GET курсы валют
+GET {{baseUrl}}/api/currency/rates
+
+### GET конвертация цены образа
+GET {{baseUrl}}/api/currency/convert?outfitId=1&currency=USD
