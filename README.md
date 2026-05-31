@@ -65,7 +65,7 @@ CREATE DATABASE event_outfit_db;
 - docker-compose up -d
 - Приложение будет доступно по адресу http://localhost:8080
 
-### Структура проекта
+## Структура проекта
 - config/ - Конфигурации (Security, Cache)
 - controller/ - Контроллеры (MVC + REST)
 - converter/ - Конвертеры Entity ↔ DTO
@@ -81,7 +81,7 @@ CREATE DATABASE event_outfit_db;
 
 - src/main/webapp/WEB-INF/views/ - JSP страницы
 
-### База данных
+## База данных
 Сущности
 - User users Пользователи
 - Outfit outfits Образы
@@ -94,7 +94,7 @@ CREATE DATABASE event_outfit_db;
 - M2M: User ↔ Outfit (избранное), Outfit ↔ OutfitStyle (стили)
 - O2M: Outfit → Comment, Outfit → OutfitImage
 
-### REST API
+## REST API
 
 Базовый URL http://localhost:8080/api
 
@@ -112,14 +112,14 @@ CREATE DATABASE event_outfit_db;
 - POST	/favorites/{userId}/{outfitId}	Добавить в избранное
 - DELETE	/favorites/{userId}/{outfitId}	Удалить из избранного
 
-### Документация Swagger
+## Документация Swagger
 http://localhost:8080/swagger-ui.html
 
-### Тестирование
+## Тестирование
 - HTTP-тесты (REST API)
 - В корне проекта есть файл api-tests.http для IntelliJ IDEA.
 
-### Docker
+## Docker
 Образы
 - eventoutfit_app - Spring Boot приложение
 - eventoutfit_db - PostgreSQL
@@ -129,7 +129,7 @@ http://localhost:8080/swagger-ui.html
 - SPRING_DATASOURCE_USERNAME - postgres
 - SPRING_DATASOURCE_PASSWORD - postgres
 
-### Дополнительные фичи
+## Дополнительные фичи
 - Кэширование - @Cacheable для мероприятий
 - Criteria Builder - динамические запросы
 - Подзапрос - поиск образов с >2 комментариями
