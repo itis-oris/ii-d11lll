@@ -15,8 +15,10 @@
     <div class="nav-buttons">
         <a href="${pageContext.request.contextPath}/home" class="btn btn-primary">Главная</a>
         <a href="${pageContext.request.contextPath}/outfits" class="btn btn-secondary">Мои образы</a>
-        <a href="${pageContext.request.contextPath}/logout" class="btn btn-secondary">Выйти</a>
-    </div>
+        <form action="${pageContext.request.contextPath}/logout" method="post" style="display: inline;">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-secondary">Выйти</button>
+        </form>    </div>
 </header>
 
 <c:choose>

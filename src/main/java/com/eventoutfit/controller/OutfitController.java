@@ -76,6 +76,21 @@ public class OutfitController {
             return "redirect:/login";
         }
 
+        if (name == null || name.trim().isEmpty()) {
+            redirect.addFlashAttribute("error", "Название образа не может быть пустым");
+            return "redirect:/outfits/create";
+        }
+
+        if (gender == null || (!gender.equals("MALE") && !gender.equals("FEMALE"))) {
+            redirect.addFlashAttribute("error", "Укажите пол образа");
+            return "redirect:/outfits/create";
+        }
+
+        if (eventId == null) {
+            redirect.addFlashAttribute("error", "Выберите мероприятие");
+            return "redirect:/outfits/create";
+        }
+
         List<String> imageUrlList = imageUrls != null ? Arrays.asList(imageUrls) : null;
         List<Long> styleIdList = styleIds != null ? Arrays.asList(styleIds) : null;
 
@@ -122,6 +137,21 @@ public class OutfitController {
         User user = userService.getCurrentUser();
         if (user == null) {
             return "redirect:/login";
+        }
+
+        if (name == null || name.trim().isEmpty()) {
+            redirect.addFlashAttribute("error", "Название образа не может быть пустым");
+            return "redirect:/outfits/edit?id=" + id;
+        }
+
+        if (gender == null || (!gender.equals("MALE") && !gender.equals("FEMALE"))) {
+            redirect.addFlashAttribute("error", "Укажите пол образа");
+            return "redirect:/outfits/edit?id=" + id;
+        }
+
+        if (eventId == null) {
+            redirect.addFlashAttribute("error", "Выберите мероприятие");
+            return "redirect:/outfits/edit?id=" + id;
         }
 
         List<String> imageUrlList = imageUrls != null ? Arrays.asList(imageUrls) : null;

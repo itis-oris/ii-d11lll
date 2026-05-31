@@ -13,12 +13,24 @@
 <div class="form-container">
     <h1>Редактировать образ</h1>
 
+    <c:if test="${not empty success}">
+        <div class="alert alert-success" style="background: #d4edda; color: #155724; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+                ${success}
+        </div>
+    </c:if>
+    <c:if test="${not empty error}">
+        <div class="alert alert-danger" style="background: #f8d7da; color: #721c24; padding: 10px; margin-bottom: 20px; border-radius: 5px;">
+                ${error}
+        </div>
+    </c:if>
+
+
     <form action="${pageContext.request.contextPath}/outfits/edit" method="post">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input type="hidden" name="id" value="${outfit.id}">
 
         <div class="form-group">
-            <label for="name">Название образа:</label>
+            <label for="name">Название образа:<span style="color: red;">*</span></label>
             <input type="text" id="name" name="name" value="${outfit.name}" required>
         </div>
 
@@ -50,7 +62,7 @@
         </div>
 
         <div class="form-group">
-            <label for="eventId">Мероприятие:</label>
+            <label for="eventId">Мероприятие:<span style="color: red;">*</span></label>
             <select id="eventId" name="eventId" required>
                 <c:forEach var="event" items="${events}">
                     <option value="${event.id}" ${outfit.event.id == event.id ? 'selected' : ''}>${event.name}</option>
@@ -74,7 +86,7 @@
         </div>
 
         <div class="form-group">
-            <label>Для кого:</label>
+            <label>Для кого:<span style="color: red;">*</span></label>
             <div>
                 <label style="display: inline; margin-right: 20px;">
                     <input type="radio" name="gender" value="FEMALE" ${outfit.gender == 'FEMALE' ? 'checked' : ''}> Женский

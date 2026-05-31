@@ -19,10 +19,6 @@
     <div class="error"><%= request.getAttribute("error") %></div>
     <% } %>
 
-    <% if (request.getParameter("error") != null) { %>
-    <div class="error">Неверное имя пользователя или пароль</div>
-    <% } %>
-
     <% if (request.getParameter("logout") != null) { %>
     <div class="success">Вы успешно вышли из системы</div>
     <% } %>

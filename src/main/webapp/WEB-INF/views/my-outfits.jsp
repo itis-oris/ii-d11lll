@@ -4,6 +4,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Мои образы - Event Outfit</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
@@ -14,8 +16,10 @@
         <a href="${pageContext.request.contextPath}/outfits/create" class="btn btn-primary">Создать образ</a>
         <a href="${pageContext.request.contextPath}/home" class="btn btn-secondary">Главная</a>
         <a href="${pageContext.request.contextPath}/favorites" class="btn btn-secondary">Избранное</a>
-        <a href="${pageContext.request.contextPath}/logout" class="btn btn-secondary">Выйти</a>
-    </div>
+        <form action="${pageContext.request.contextPath}/logout" method="post" style="display: inline;">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-secondary">Выйти</button>
+        </form>    </div>
 </header>
 
 <c:if test="${not empty success}">

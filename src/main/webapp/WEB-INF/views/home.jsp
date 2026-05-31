@@ -4,6 +4,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
     <title>Event Outfit - Главная</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 </head>
@@ -13,7 +15,10 @@
     <div class="nav-buttons">
         <a href="${pageContext.request.contextPath}/favorites" class="btn btn-primary">Избранное</a>
         <a href="${pageContext.request.contextPath}/outfits" class="btn btn-primary">Мои образы</a>
-        <a href="${pageContext.request.contextPath}/logout" class="btn btn-primary">Выйти</a>
+        <form action="${pageContext.request.contextPath}/logout" method="post" style="display: inline;">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <button type="submit" class="btn btn-secondary">Выйти</button>
+        </form>
     </div>
 </header>
 <div class="search-form" style="text-align: center; margin: 20px;">
