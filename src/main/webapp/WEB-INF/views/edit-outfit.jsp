@@ -97,6 +97,11 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label for="price">Цена (₽):</label>
+            <input type="number" id="price" name="price" value="${outfit.price}" step="1000">
+        </div>
+
         <div class="form-buttons">
             <button type="submit" class="btn btn-primary">Сохранить изменения</button>
             <a href="${pageContext.request.contextPath}/outfits" class="btn btn-secondary">Отмена</a>

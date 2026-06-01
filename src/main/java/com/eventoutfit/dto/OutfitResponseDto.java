@@ -9,6 +9,8 @@ public class OutfitResponseDto {
     private String name;
     private String description;
     private String gender;
+    private Double price;
+
     private LocalDateTime createdAt;
 
     private List<String> imageUrls;
@@ -20,6 +22,14 @@ public class OutfitResponseDto {
 
     private Long eventId;
     private String eventName;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
     public Long getId() {
         return id;

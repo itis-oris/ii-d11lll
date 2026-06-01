@@ -156,7 +156,7 @@ public class OutfitService {
 
     @Transactional
     public boolean updateOutfit(Long id, String name, String description,
-                                String gender, Long eventId, List<Long> styleIds) {
+                                String gender, Long eventId, List<Long> styleIds, Double price) {
         logger.info("Обновление образа: id={}, name={}", id, name);
 
         Optional<Outfit> outfitOpt = outfitRepository.findById(id);
@@ -188,6 +188,10 @@ public class OutfitService {
             List<OutfitStyle> styles = styleService.findByIds(styleIds);
             outfit.setStyles(styles);
             logger.debug("Обновлены стили образа: {}", styles.size());
+        }
+
+        if (price != null) {
+            outfit.setPrice(price);
         }
 
         outfitRepository.save(outfit);

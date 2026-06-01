@@ -1,6 +1,7 @@
 package com.eventoutfit.controller;
 
 import com.eventoutfit.converter.OutfitConverter;
+import com.eventoutfit.dto.OutfitRequestDto;
 import com.eventoutfit.dto.OutfitResponseDto;
 import com.eventoutfit.model.Outfit;
 import com.eventoutfit.model.OutfitImage;
@@ -33,7 +34,7 @@ public class RestOutfitController {
         this.outfitConverter = outfitConverter;
     }
 
-        @GetMapping
+    @GetMapping
     public ResponseEntity<List<OutfitResponseDto>> getAllOutfits() {
         logger.debug("REST: получение всех образов");
         List<Outfit> outfits = outfitService.findAll();
@@ -91,8 +92,15 @@ public class RestOutfitController {
         return ResponseEntity.ok(outfit.get().getImages());
     }
 
+    @GetMapping("/popular")
+    public ResponseEntity<List<OutfitResponseDto>> getPopularOutfits() {
+        logger.debug("REST: популярные образы (подзапрос)");
+        List<Outfit> outfits = outfitService.getOutfitsWithManyComments();
+        return ResponseEntity.ok(outfitConverter.toResponseDtoList(outfits));
+    }
+
     @PostMapping
-    public ResponseEntity<Map<String, Object>> createOutfit(@Valid @RequestBody CreateOutfitRequest request,
+    public ResponseEntity<Map<String, Object>> createOutfit(@Valid @RequestBody OutfitRequestDto request,
                                                             BindingResult result) {
         logger.debug("REST: создание образа: {}", request.getName());
 
@@ -144,7 +152,8 @@ public class RestOutfitController {
                 request.getDescription(),
                 request.getGender(),
                 request.getEventId(),
-                request.getStyleIds()
+                request.getStyleIds(),
+                request.getPrice()
         );
 
         Map<String, Object> response = new HashMap<>();
@@ -179,51 +188,6 @@ public class RestOutfitController {
         }
     }
 
-    @GetMapping("/popular")
-    public ResponseEntity<List<OutfitResponseDto>> getPopularOutfits() {
-        logger.debug("REST: популярные образы (подзапрос)");
-        List<Outfit> outfits = outfitService.getOutfitsWithManyComments();
-        return ResponseEntity.ok(outfitConverter.toResponseDtoList(outfits));
-    }
-
-
-    public static class CreateOutfitRequest {
-        @NotBlank(message = "Название не может быть пустым")
-        private String name;
-
-        private String description;
-
-        @NotBlank(message = "Укажите пол (MALE/FEMALE)")
-        private String gender;
-
-        @NotNull(message = "ID пользователя обязателен")
-        private Long userId;
-        private List<String> imageUrls;
-
-        @NotNull(message = "ID мероприятия обязателен")
-        private Long eventId;
-
-        private List<Long> styleIds;
-        private Double price;
-
-        public Double getPrice() { return price; }
-        public void setPrice(Double price) { this.price = price; }
-        public String getName() { return name; }
-        public void setName(String name) { this.name = name; }
-        public String getDescription() { return description; }
-        public void setDescription(String description) { this.description = description; }
-        public String getGender() { return gender; }
-        public void setGender(String gender) { this.gender = gender; }
-        public Long getUserId() { return userId; }
-        public void setUserId(Long userId) { this.userId = userId; }
-        public List<String> getImageUrls() { return imageUrls; }
-        public void setImageUrls(List<String> imageUrls) { this.imageUrls = imageUrls; }
-        public Long getEventId() { return eventId; }
-        public void setEventId(Long eventId) { this.eventId = eventId; }
-        public List<Long> getStyleIds() { return styleIds; }
-        public void setStyleIds(List<Long> styleIds) { this.styleIds = styleIds; }
-    }
-
     public static class UpdateOutfitRequest {
         @NotBlank(message = "Название не может быть пустым")
         private String name;
@@ -238,6 +202,10 @@ public class RestOutfitController {
 
         private List<Long> styleIds;
 
+        private Double price;
+
+        public Double getPrice() {return price;}
+        public void setPrice(Double price) {this.price = price;}
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
         public String getDescription() { return description; }

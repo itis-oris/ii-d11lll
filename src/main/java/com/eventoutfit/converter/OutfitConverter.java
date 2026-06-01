@@ -24,6 +24,7 @@ public class OutfitConverter {
         dto.setDescription(outfit.getDescription());
         dto.setGender(outfit.getGender());
         dto.setCreatedAt(outfit.getCreatedAt());
+        dto.setPrice(outfit.getPrice());
 
         if (outfit.getImages() != null) {
             List<String> imageUrls = outfit.getImages().stream()

@@ -132,6 +132,7 @@ public class OutfitController {
                                @RequestParam Long eventId,
                                @RequestParam(required = false) String[] imageUrls,
                                @RequestParam(required = false) Long[] styleIds,
+                               @RequestParam(required = false) Double price,
                                RedirectAttributes redirect) {
 
         User user = userService.getCurrentUser();
@@ -157,7 +158,7 @@ public class OutfitController {
         List<String> imageUrlList = imageUrls != null ? Arrays.asList(imageUrls) : null;
         List<Long> styleIdList = styleIds != null ? Arrays.asList(styleIds) : null;
 
-        boolean success = outfitService.updateOutfit(id, name, description, gender, eventId, styleIdList);
+        boolean success = outfitService.updateOutfit(id, name, description, gender, eventId, styleIdList, price);
 
         if (imageUrlList != null && !imageUrlList.isEmpty()) {
             outfitService.addImagesToOutfit(id, imageUrlList);
